@@ -8,10 +8,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose.connect("mongodb+srv://syedzeeyan90_db_user:7hoWtv1cHZiGFcqr@cluster0.2i33vpb.mongodb.net/registrationDB?retryWrites=true&w=majority")
-    .then(() => console.log("MongoDB Connected Successfully"))
-    .catch((err) => console.log("MongoDB Error:", err));
+require('dotenv').config(); // Load variables from .env
+const mongoose = require('mongoose');
+
+// Use the variable from your .env file
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to DB!'))
+  .catch(err => console.log(err));
 
 // Schema
 const userSchema = new mongoose.Schema({
